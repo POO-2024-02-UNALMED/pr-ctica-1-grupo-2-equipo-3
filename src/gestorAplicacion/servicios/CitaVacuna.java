@@ -1,5 +1,4 @@
-/* Autores: Diego Andres Gracia Granados, Daniel Giraldo Vanegas, Elian David Velandia Riveros, Juan Camilo Gutierrez Martinez
-y Santiago Arboleda Acevedo */
+/* Autores: Samuel Botero Rivera, Santiago Sanchez Ruiz, Samuel Gutierrez Betancur, Samuel Garcia Rojas */
 package gestorAplicacion.servicios;
 
 import gestorAplicacion.administracion.Vacuna;

@@ -4,7 +4,6 @@ package gestorAplicacion.servicios;
 
 import gestorAplicacion.administracion.HistoriaClinica;
 import gestorAplicacion.personas.Paciente;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
