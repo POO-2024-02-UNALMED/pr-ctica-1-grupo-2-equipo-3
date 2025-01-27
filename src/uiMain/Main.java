@@ -1677,5 +1677,198 @@ public static void verMedicamentos(Hospital hospital) {
 
 }
 
+//------------------------------- gestion pacientes------------------------------------///
+
+public static void menuGestionPaciente(Hospital hospital) {
+	byte opcion;
+	do {
+		// Menu para gestionar la clase Paciente
+		System.out.println("\nMENU Gestion Paciente");
+		System.out.println("1. Registrar paciente");
+		System.out.println("2. Registrar enfermedad");
+		System.out.println("3. Eliminar Paciente");
+		System.out.println("4. Ver Paciente");
+		System.out.println("5. --Regresar al menu anterior--");
+		System.out.println("6. --Salir--");
+		System.out.println("Ingrese una opcion: ");
+		opcion = sc.nextByte();
+		switch (opcion) {
+			case 1 -> registrarPaciente(hospital);
+			case 2 -> registrarNuevaEnfermedad(hospital);
+			case 3 -> eliminarPaciente(hospital);
+			case 4 -> verPaciente(hospital);
+			case 5 -> {
+				return;
+			}
+			case 6 -> {
+				Serializador.serializar(hospital);
+				System.exit(0);
+			}
+		}
+	} while (true);
+}
+
+
+    public static void registrarPaciente (Hospital hospital){
+
+        Scanner sc= new Scanner(System.in);
+
+        System.out.println("Por favor introduce la información del paciente para su registro");
+        System.out.println("Ingrese el nombre del paciente:");
+        String nombre = sc.nextLine();
+        System.out.println("Ingrese el número de cédula: ");
+        int id = sc.nextInt();
+        if (hospital.buscarPaciente(id) != null) {
+            System.out.println("Este paciente ya esta registrado");
+            return;
+        }
+        System.out.println("Ingrese su tipo de EPS 'Subsidiado','Contributivo' o 'Particular': ");
+        String eps = sc.next();
+        Paciente paciente = new Paciente(id, nombre, eps);
+        System.out.println("¡El paciente ha sido registrado con éxito!");
+        System.out.println("Recuerde que actualmente el paciente su historia clínica está totalmente vacía");
+        hospital.getListaPacientes().add(paciente);
+        System.out.println(paciente);
+    }
+
+    public static void registrarNuevaEnfermedad(Hospital hospital) {
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Ingrese la cédula del paciente para registrar nuevas enfermedades: ");
+        int cedula = sc.nextInt();
+        sc.nextLine(); // nextLine para que no quede guardado el Int y se salte el siguiente scanner
+        Paciente paciente = hospital.buscarPaciente(cedula);
+        if (paciente == null) { /*Si el paciente es null, quiere decir que no lo encontró, por lo que
+        preguntamos si desea registrar este paciente */
+            while (true) {
+                System.out.println("El paciente no esta registrado.\n¿Desea registrarlo?");
+                System.out.println("1. Si\n2. No \nSeleccione una opción");
+                byte opcion = sc.nextByte();
+                sc.nextLine();
+                switch (opcion) {
+                    case 1:
+                        registrarPaciente(hospital);
+                        return;
+
+                    case 2:
+                        System.out.println("Adios");
+                        return;
+                    default:
+                        System.out.println("Opción Inválida");
+                }
+            }
+        }
+        HistoriaClinica historiaPaciente = paciente.getHistoriaClinica();
+        if (historiaPaciente.getEnfermedades() == null){
+            System.out.println("El paciente no tiene enfermedades registradas");
+        } else {
+            System.out.println("Estas son las enfermedades del paciente");
+            for (int i = 0; i < paciente.getHistoriaClinica().getEnfermedades().size(); i++) {
+                System.out.println(i + 1 + "." + paciente.getHistoriaClinica().getEnfermedades().get(i));
+            }
+        }
+        boolean agregarOtro = false; //condicion para el while para ir agregando enfermedades
+        do {
+            ArrayList <Enfermedad> enfermedades = Enfermedad.getEnfermedadesRegistradas();
+            while (true){
+                System.out.println("Estas son las enfermedades registradas en el sistema, por favor elige una.");
+                System.out.println("0.Registrar nueva enfermedad al sistema");
+                for (int i = 0; i < enfermedades.size(); i++){
+                    System.out.println(i + 1 + "." + enfermedades.get(i));
+                }
+                byte opcEnf = sc.nextByte();
+                sc.nextLine();
+                if (opcEnf == 0) { // Se preguntan los datos de la enfermedad que se desea agregar y no esta registrada
+                    System.out.println("Ingrese el nombre de la enfermedad");
+                    String nombre = sc.nextLine();
+                    System.out.println("Ingrese el nombre la tipología de la enfermedad");
+                    String tipologia = sc.next();
+                    System.out.println("Ingrese la especialidad que trata la enfermedad");
+                    String especialidad = sc.next();
+                    Enfermedad nuevaEnfermedad = new Enfermedad(especialidad, nombre, tipologia);
+                    historiaPaciente.getEnfermedades().add(nuevaEnfermedad);
+                    System.out.println("¡La enfermedad ha sido agregada con éxito!");
+                    break;
+                } else if (opcEnf < 0 || opcEnf > enfermedades.size()){
+                    System.out.println("Opción inválida");
+                } else {
+                    Enfermedad enfermedad = enfermedades.get(opcEnf-1);
+                    enfermedad.nuevoEnfermo();
+                    historiaPaciente.getEnfermedades().add(enfermedad);
+                    System.out.println("¡La enfermedad ha sido agregada con éxito!");
+                    break;
+                }
+            }
+            while (true) {
+                System.out.println("¿Desea agregar otra enfermedad? (s/n)");
+                char agregar = sc.next().charAt(0);
+                if (agregar == 's' || agregar == 'n') { //If con el caso para seguir o terminar el bucle
+                    agregarOtro = agregar == 's';
+                    break;
+                } else {
+                    System.out.println("Opción inválida");
+                }
+            }
+        } while(agregarOtro);
+        System.out.println("¡La enfermedad o enfermedades han sido agregadas con éxito!");
+    }
+
+    public static void eliminarPaciente(Hospital hospital) {
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Ingrese la cédula del paciente que se eliminará: ");
+        int cedula = sc.nextInt();
+        Paciente paciente = hospital.buscarPaciente(cedula);
+        if (paciente == null) { /*Si el paciente es null, quiere decir que no lo encontró */
+            System.out.println("¡El paciente no existe o ya fue eliminado!");
+        }
+        hospital.getListaPacientes().remove(paciente);
+        System.out.println("¡Paciente eliminado!");
+    }
+
+    public static void verPaciente(Hospital hospital) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese la cédula del paciente: ");
+        int cedula = sc.nextInt();
+        Paciente paciente = hospital.buscarPaciente(cedula);
+        if (paciente == null) { /*Si el paciente es null, quiere decir que no lo encontró, por lo que
+        preguntamos si desea registrar este paciente */
+            while (true) {
+                System.out.println("El paciente no esta registrado.\n¿Desea registrarlo?");
+                System.out.println("1. Si\n2. No \nSeleccione una opción");
+                byte opcion = sc.nextByte();
+                switch (opcion) {
+                    case 1:
+                        registrarPaciente(hospital);
+                        return;
+
+                    case 2:
+                        System.out.println("Adios");
+                        return;
+                    default:
+                        System.out.println("Opción Inválida");
+                }
+            }
+        }
+        System.out.println("Aquí está la información del paciente: ");
+        System.out.println(paciente);
+        System.out.println("Historia Clinica: ");
+        System.out.println("Enfermedades: ");
+        for (Enfermedad enfermedades : paciente.getHistoriaClinica().getEnfermedades()){
+            System.out.println(enfermedades);
+        }
+        System.out.println("Formulas: ");
+        for (Formula formulas : paciente.getHistoriaClinica().getListaFormulas()){
+            System.out.println(formulas);
+        }
+        System.out.println("Citas: ");
+        for (Cita citas : paciente.getHistoriaClinica().getHistorialCitas()){
+            System.out.println("Fecha: "+citas.getFecha());
+            System.out.println("Doctor: "+citas.getDoctor().getNombre());
+        }
+        System.out.println("Historial de Vacunas: ");
+        for (CitaVacuna vacunas : paciente.getHistoriaClinica().getHistorialVacunas()){
+            System.out.println(vacunas.getVacuna().getNombre());
+        }
+    }
+
 
 }
