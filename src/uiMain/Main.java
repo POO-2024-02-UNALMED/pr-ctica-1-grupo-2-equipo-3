@@ -1853,4 +1853,238 @@ public static void menuGestionPaciente(Hospital hospital) {
             System.out.println(vacunas.getVacuna().getNombre());
         }
     }
+
+
+     //------------------------------- gestion vacunas------------------------------------///
+
+    public static void menuGestionVacunas(Hospital hospital){
+	byte opcion;
+	do {
+		// Menu para gestionar la clase Vacuna y CitaVacuna
+		System.out.println("\nMENU Gestion Vacunas");
+		System.out.println("1. Registrar vacuna");
+		System.out.println("2. Eliminar vacuna");
+		System.out.println("3. Ver información de una vacuna");
+		System.out.println("4. Agregar cita a una vacuna");
+		System.out.println("5. Eliminar cita a una vacuna");
+		System.out.println("6. --Regresar al menu anterior--");
+		System.out.println("7. --Salir--");
+		System.out.println("Ingrese una opcion: ");
+		opcion = sc.nextByte();
+		switch (opcion) {
+			case 1 -> registrarVacuna(hospital);
+			case 2 -> eliminarVacuna(hospital);
+			case 3 -> verVacuna(hospital);
+			case 4 -> agregarCitaVacuna(hospital);
+			case 5 -> eliminarCitaVacuna(hospital);
+			case 6 -> {
+				return;
+			}
+			case 7 -> {
+				Serializador.serializar(hospital);
+				System.exit(0);
+			}
+		}
+	} while (true);
+
+
+}
+
+
+    public static boolean verificarExistenciaVacuna(String nombre,Hospital hospital){
+	boolean valor= false;
+	
+	for(int i=1; i<=hospital.getListaVacunas().size();i++){
+		if (nombre.equals(hospital.getListaVacunas().get(i - 1).getNombre())){
+			valor=true;
+			break;
+		}
+		else{
+			valor=false;
+		}
+	}
+	return valor;
+}
+
+    public static void verVacuna(Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Por favor ingrese el nombre de la vacuna a la que quiere ver su información: ");
+
+	String nombre= sc.nextLine();
+
+	if(!verificarExistenciaVacuna(nombre,hospital)){
+		System.out.println("Esta vacuna no existe en el inventario del hospital");
+	}else{
+		for (Vacuna vacuna: hospital.getListaVacunas()){
+			if(Objects.equals(vacuna.getNombre(), nombre)){
+				System.out.println("\nNombre: "+vacuna.getNombre());
+				System.out.println("Tipo: "+vacuna.getTipo());
+				System.out.println("Eps a la que está disponible: ");
+				for (int i=1; i<=vacuna.getTipoEps().size(); i++){
+					System.out.println(i+". "+vacuna.getTipoEps().get(i-1));
+				}
+				System.out.println("Precio: "+vacuna.getPrecio());
+			}
+		}
+	}
+
+}
+
+    public static void registrarVacuna (Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("A continuación ingrese la información de la nueva vacuna: ");
+	System.out.println("Ingrese el nombre de la vacuna (Recuerda empezar con mayúscula) : ");
+	String nombre= sc.nextLine();
+
+	if(verificarExistenciaVacuna(nombre,hospital)){
+		System.out.println("Esta vacuna ya está registrada");
+		return;
+	}
+	System.out.println("Ingrese el tipo de la vacuna (Obligatoria, No obligatoria): ");
+	String tipo = sc.nextLine();
+
+	ArrayList<String> tipoEps= new ArrayList<String>();
+	boolean respuesta;
+
+	do {
+		System.out.println("Ingrese el tipo de Eps al que va a estar disponible la vacuna (Subsidiado, Contributivo o Particular) : ");
+		String eps;
+		eps= sc.next();
+
+		tipoEps.add(eps);
+
+		while(true){
+			System.out.println("¿Desea agregar otra Eps? [s/n] ");
+			String letra =sc.next();
+			if (Objects.equals(letra, "s") || Objects.equals(letra, "n")){
+				respuesta= letra.equals("s");
+				break;
+			}else{
+				System.out.println("Opción inválida");
+			}
+		}
+	}while(respuesta);
+
+	System.out.println("Ingrese el precio de la vacuna: ");
+	double precio = sc.nextDouble();
+
+	Vacuna vacunaNueva= new Vacuna(tipo, nombre, tipoEps, precio );
+	System.out.println("¡La vacuna ha sido registrada con éxito!");
+
+	hospital.getListaVacunas().add(vacunaNueva);
+
+	System.out.println("\nInformación general de la nueva vacuna registrada: ");
+	System.out.println("Vacuna: "+vacunaNueva.getNombre());
+	System.out.println("Tipo: "+vacunaNueva.getTipo());
+	System.out.println("Precio: "+ vacunaNueva.getPrecio());
+
+	sc.nextLine();
+
+}
+
+    public static void agregarCitaVacuna(Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Ingrese el nombre de la vacuna: ");
+	String nombre= sc.nextLine();
+
+	if(!verificarExistenciaVacuna(nombre, hospital)){
+		System.out.println("Esta vacuna no existe en el inventario del hospital");
+	}else{
+		//busca la vacuna
+		Vacuna vacuna= hospital.buscarVacuna(nombre);
+
+		System.out.println("Ingrese la fecha de la cita nueva (Ejemplo de estructura: 3 de Abril, 8:00 am): ");
+		String fecha= sc.nextLine();
+
+		vacuna.getAgenda().add(new CitaVacuna(fecha,null,null));
+
+		System.out.println("¡La cita ha sido añadida a la agenda de la vacuna correctamente!");
+
+		System.out.println("\nVacuna: "+vacuna.getNombre());
+		System.out.println("Agenda: ");
+		for (int i=1; i<=vacuna.getAgenda().size(); i++){
+			System.out.println(i+ ". "+ vacuna.getAgenda().get(i-1).getFecha());
+		}
+
+	}
+}
+
+    public static void eliminarCitaVacuna(Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Ingrese el nombre de la vacuna a la que se le eliminará la cita");
+	String nombre= sc.nextLine();
+
+	if (!verificarExistenciaVacuna(nombre,hospital)){
+		System.out.println("Esta vacuna no existe en el inventario del hospital");
+	}else{
+
+		Vacuna vacuna=hospital.buscarVacuna(nombre);
+
+		System.out.println("A continuación se muestran las citas de esta vacuna que no tiene paciente asignado: ");
+
+		ArrayList<CitaVacuna> agendaDisponible= vacuna.mostrarAgendaDisponible();
+
+		if(agendaDisponible.size()==0){
+			System.out.println("La vacuna no tiene agenda disponible");
+			return;
+		}
+		//Se muestran las citas
+		for(int i=1; i<= agendaDisponible.size();i++){
+			System.out.println(i+ ". "+agendaDisponible.get(i-1).getFecha());
+		}
+
+		System.out.println("Seleccione la cita que desea eliminar: ");
+		byte numeroCita= sc.nextByte();
+
+		//Se valida la opción
+		while (numeroCita<1 || numeroCita>agendaDisponible.size()){
+			System.out.println("Opción inválida, por favor ingrese otra opción: ");
+			numeroCita= sc.nextByte();
+		}
+
+		for (int i=1; i<=vacuna.getAgenda().size(); i++){
+			if(Objects.equals(vacuna.getAgenda().get(i - 1).getFecha(), agendaDisponible.get(numeroCita - 1).getFecha())){
+				vacuna.getAgenda().remove(vacuna.getAgenda().get(i-1));
+			}
+		}
+
+		System.out.println("¡Cita eliminada con éxito!");
+		System.out.println("\nVacuna: "+vacuna.getNombre());
+		System.out.println("Agenda: ");
+		for (CitaVacuna agenda : vacuna.getAgenda()){
+			System.out.println(agenda.getFecha());
+		}
+	}
+}
+
+      public static void eliminarVacuna(Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Por favor ingresa el nombre de la vacuna que quiere eliminar: ");
+
+	String nombre= sc.nextLine();
+
+	if(!verificarExistenciaVacuna(nombre, hospital)){
+		System.out.println("Esta vacuna no existe en el inventario del hospital");
+	}else{
+		for(int i=1; i<=hospital.getListaVacunas().size(); i++){
+			if(Objects.equals(hospital.getListaVacunas().get(i - 1).getNombre(), nombre)){
+				System.out.println(hospital.getListaVacunas().get(i-1).getNombre()+" acaba de ser eliminada");
+				hospital.getListaVacunas().remove(hospital.getListaVacunas().get(i-1));
+			}
+		}
+	}
+}
+
+
+
 }
