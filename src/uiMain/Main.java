@@ -26,8 +26,13 @@ public class Main {
 
     public static void main(String[] args) {
         Hospital hospital = new Hospital(); // Inicio de instancia de hospital para serialización
+        mostrarMensajeBienvenida();
         mostrarUtilidadPrograma();
         menuInicial(hospital);
+    }
+
+    public static void mostrarMensajeBienvenida() {
+        System.out.println("Bienvenido al Sistema de registro hospitalario basado en objetos");
     }
 
     public static void menuInicial(Hospital hospital) {
