@@ -1,45 +1,0 @@
-¨Ì sr java.util.ArrayListxÅ“ô«aù I sizexp   	w   	sr  gestorAplicacion.personas.Doctor≤°W?÷∆
-¡ L agendat Ljava/util/ArrayList;L especialidadt Ljava/lang/String;xr !gestorAplicacion.personas.PersonaúxÚ·MÓÎ I cedulaL nombreq ~ L  tipoEpsq ~ xp  ºt Davidt 
-Subsidiadosq ~     w   sr gestorAplicacion.servicios.Cita&ﬁ+NnY/: L doctort "LgestorAplicacion/personas/Doctor;L fechaq ~ xr #gestorAplicacion.servicios.Servicio+ÚØ]æZ Z 
-estadoPagoJ 
-idServicioL pacientet $LgestorAplicacion/personas/Paciente;xp        sr "gestorAplicacion.personas.Paciente∆±n∏˜_?¨ L categoriaHabitaciont 5LgestorAplicacion/administracion/CategoriaHabitacion;L habitacionAsignadat 'LgestorAplicacion/servicios/Habitacion;L historiaClinicat 1LgestorAplicacion/administracion/HistoriaClinica;xq ~    ot Juant 
-Subsidiadoppsr /gestorAplicacion.administracion.HistoriaClinicaßVçuyø˙ L enfermedadesq ~ L historialCitasq ~ L historialVacunasq ~ L 
-listaFormulasq ~ L pacienteq ~ 
-xpsq ~     w   sr $gestorAplicacion.personas.Enfermedad”|Pô£ÌNû I enfermosL especialidadq ~ L nombreq ~ L 	tipologiaq ~ xp   t 
-Odontologiat Cariest Isq ~    t  Generalt 
-Bronquitist IIxsq ~     w   q ~ sq ~ 
-         q ~ sq ~   öt Linaq ~ sq ~     w   q ~ #sq ~ 
-        pq ~ $t 4 de Abril, 3:00 pmsq ~ 
-        	pq ~ $t 5 de Abril, 10:00 amxt 
-Odontologiat 3 de Abril, 8:00 amxsq ~      w    xsq ~      w    xq ~ q ~ q ~ ,sq ~ 
-        pq ~ q ~ (sq ~ 
-        pq ~ q ~ *xt  Generalsq ~   +t Manuelq ~ sq ~     w   sq ~ 
-        pq ~ 2q ~ ,sq ~ 
-        pq ~ 2q ~ (sq ~ 
-        pq ~ 2q ~ *xt Oftalmologiaq ~ $sq ~   	t  Danielat Contributivosq ~     w   sq ~ 
-        
-pq ~ 9q ~ ,sq ~ 
-        
-pq ~ 9q ~ (sq ~ 
-        pq ~ 9q ~ *xq ~ 1sq ~   xt Jaimeq ~ ;sq ~     w   sq ~ 
-        
-sq ~    ﬁt Joset Contributivoppsq ~ sq ~     w   sq ~    t Oftalmologiat  Uveitisq ~ xsq ~     w   q ~ Cxsq ~      w    xsq ~      w    xq ~ Dq ~ @q ~ ,sq ~ 
-        pq ~ @q ~ (sq ~ 
-        pq ~ @q ~ *xq ~ 8sq ~   Át Juanaq ~ ;sq ~     w   sq ~ 
-        pq ~ Qq ~ ,sq ~ 
-        pq ~ Qq ~ (sq ~ 
-        pq ~ Qq ~ *xq ~ +sq ~   Wt  Oswaldot 
-Particularsq ~     w   sq ~ 
-        sq ~   Mt Luzt 
-Particularppsq ~ sq ~     w   sq ~    q ~ Jt 
-Conjuntivitisq ~ !sq ~    q ~ t 
-Gingivitist IIIsq ~    q ~ t 	Influenzaq ~ xsq ~     w   q ~ [sq ~ 
-        q ~ \sq ~   
-t Cristianq ~ Ysq ~     w   q ~ isq ~ 
-        pq ~ jq ~ (sq ~ 
-        pq ~ jq ~ *xq ~ +q ~ ,sq ~ 
-        q ~ \sq ~   Æt Lauraq ~ Ysq ~     w   q ~ osq ~ 
-        pq ~ pq ~ (sq ~ 
-        pq ~ pq ~ *xq ~ 8q ~ ,xsq ~      w    xsq ~      w    xq ~ \q ~ Wq ~ ,sq ~ 
-        pq ~ Wq ~ (sq ~ 
-        pq ~ Wq ~ *xq ~ 1q ~ pq ~ jx
