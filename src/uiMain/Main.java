@@ -1113,7 +1113,15 @@ public static void menuGestion(Hospital hospital) {
         do {
             System.out.println("Ingrese la cedula del paciente:");
             pacienteSeleccionado = hospital.buscarPaciente(Integer.parseInt(sc.nextLine()));
-
+            
+            String input = sc.nextLine();
+            try {
+                pacienteSeleccionado = hospital.buscarPaciente(Integer.parseInt(input));
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, ingrese un número de cédula válido.");
+                continue;
+            }
+            
             if (pacienteSeleccionado == null) {
                 System.out.println("No existe un paciente registrado con esta cedula. Desea intentar de nuevo? (S/N)");
                 if (sc.nextLine().equalsIgnoreCase("n")) {
