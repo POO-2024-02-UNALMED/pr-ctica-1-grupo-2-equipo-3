@@ -44,8 +44,8 @@ public class Main {
             opcion = sc.nextByte();
 
             switch (opcion) {
-                case 1 -> MenuFuncionalidades.menuFuncionalidades(hospital);
-                case 2 -> MenuGestion.menuGestion(hospital);
+                case 1 -> menuFuncionalidades(hospital);
+                case 2 -> menuGestion(hospital);
                 case 3 -> {
                     Serializador.serializar(hospital);
                     System.exit(0);
@@ -492,7 +492,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion;
                                     //se pide que seleccione la habitación que mas le guste y que cumple el rango establecido
                                     do {
@@ -529,7 +528,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion1;
                                     //se pide que seleccione la habitación que mas le guste y que cumple el rango establecido
                                     do {
@@ -560,7 +558,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion2;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -614,7 +611,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -644,7 +640,7 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
+                                    
                                     int opcion1;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -674,7 +670,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion2;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -704,7 +699,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion3;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -734,7 +728,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion4;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -783,7 +776,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -812,7 +804,6 @@ public static void menuGestion(Hospital hospital) {
                                         Habitacion habi = habitacionesDisponibles.get(i);
                                         System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                                     }
-                                    sc = new Scanner(System.in);
                                     int opcion1;
                                     do {
                                         System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -856,7 +847,6 @@ public static void menuGestion(Hospital hospital) {
                     }
                     paciente.setHabitacionAsignada(habitacion);
                     //se asigna la habitacion al paciente
-                    sc = new Scanner(System.in);
                     System.out.println("Ingrese el número estimado de dias para la estadia en la habitacion:");
                     //se pide los dias estimados de la estadia en la habitacion
                     int dias = sc.nextInt();
@@ -871,7 +861,6 @@ public static void menuGestion(Hospital hospital) {
                 } else { // si la habitacion es null se imprime una ocion al usuario de escoger si desea cambiar de categoria a una inferior
                     System.out.println("No hay habitaciones disponibles de la categoría " + paciente.getCategoriaHabitacion());
                     System.out.println("¿Desea asignar una habitación de otra categoría inferior? (s/n)");
-                    sc = new Scanner(System.in);
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
                         //se ejecuta un metodo para cambiar de caterioria y se buscan las habitaciones disponibles de esa categoria
@@ -883,7 +872,6 @@ public static void menuGestion(Hospital hospital) {
                                 Habitacion habi = otraHabitacionDisponibles.get(i);
                                 System.out.println(i + ". " + "Número ID: "+ habi.getNumero());
                             }
-                            sc = new Scanner(System.in);
                             int opcion;
                             do {
                                 System.out.println("Seleccione la habitación deseada (ingrese un número del 0 al " +
@@ -913,7 +901,6 @@ public static void menuGestion(Hospital hospital) {
                             }
                             otraHabitacion.setPaciente(paciente);
                             paciente.setHabitacionAsignada(otraHabitacion);
-                            sc = new Scanner(System.in);
                             System.out.println("\"Ingrese el número estimado de dias para la estadia en la habitacion:");
                             int dias = sc.nextInt();
                             sc.nextLine();
@@ -1286,7 +1273,6 @@ public static void menuGestion(Hospital hospital) {
 
 
 public static void verDoctor(Hospital hospital) {
-	Scanner sc = new Scanner(System.in);
 	System.out.println("Ingrese la cédula del doctor: ");
 	int cedula = sc.nextInt();
 	Doctor doctor = hospital.buscarDoctor(cedula);
@@ -1318,7 +1304,6 @@ public static void verDoctor(Hospital hospital) {
 }
 
 	public static void agregarCitas(Hospital hospital) {
-	Scanner sc = new Scanner(System.in);
 	System.out.println("Ingrese la cédula del doctor: ");
 	int cedula = sc.nextInt();
 	sc.nextLine();
@@ -1825,7 +1810,6 @@ public static void menuGestionPaciente(Hospital hospital) {
     }
 
     public static void verPaciente(Hospital hospital) {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese la cédula del paciente: ");
         int cedula = sc.nextInt();
         Paciente paciente = hospital.buscarPaciente(cedula);
@@ -1869,6 +1853,4 @@ public static void menuGestionPaciente(Hospital hospital) {
             System.out.println(vacunas.getVacuna().getNombre());
         }
     }
-
-
 }
