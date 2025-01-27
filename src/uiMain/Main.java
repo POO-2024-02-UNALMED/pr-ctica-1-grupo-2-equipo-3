@@ -81,7 +81,10 @@ public static void menuFuncionalidades(Hospital hospital) {
                 case 2 -> formulaMedica(hospital);
                 case 3 -> asignarHabitacion(hospital);
                 case 4 -> vacunacion(hospital);
-                case 5 -> facturacion(hospital);
+                case 5 -> {
+                    sc.nextLine(); // Limpia el búfer antes de llamar a facturación
+                    facturacion(hospital);
+                }
                 case 6 -> {
                     return;
                 }
@@ -1113,15 +1116,7 @@ public static void menuGestion(Hospital hospital) {
         do {
             System.out.println("Ingrese la cedula del paciente:");
             pacienteSeleccionado = hospital.buscarPaciente(Integer.parseInt(sc.nextLine()));
-            
-            String input = sc.nextLine();
-            try {
-                pacienteSeleccionado = hospital.buscarPaciente(Integer.parseInt(input));
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Por favor, ingrese un número de cédula válido.");
-                continue;
-            }
-            
+
             if (pacienteSeleccionado == null) {
                 System.out.println("No existe un paciente registrado con esta cedula. Desea intentar de nuevo? (S/N)");
                 if (sc.nextLine().equalsIgnoreCase("n")) {
@@ -1186,7 +1181,6 @@ public static void menuGestion(Hospital hospital) {
         // Limpiar la lista de servicios sin pagar
         serviciosSinPagar.clear();
     }
-
 
 ///////////////////////////////// GESTION ///////////////////////////////////////////////
 
