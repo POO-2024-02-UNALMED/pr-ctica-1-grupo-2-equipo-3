@@ -1408,6 +1408,120 @@ public static void verDoctor(Hospital hospital) {
 	}
 }
 
+//------------------------------- gestion hospital------------------------------------///
+
+public static void menuGetionHospital(Hospital hospital) {
+	byte opcion;
+	do {
+		// Menu para gestionar las clases Hospital, Habitacion y Medicamento
+		System.out.println("\n---Menu Gestion Hospital---");
+		System.out.println("1. Construir Habitación");
+		System.out.println("2. Ver lista de Habitaciones");
+		System.out.println("3. Destruir Habitación");
+		System.out.println("4. Agregar Medicamentos");
+		System.out.println("5. Ver Inventario de medicamentos");
+		System.out.println("6. Ver personas registradas en el hospital");
+		System.out.println("7. Ver vacunas registradas en el hospital");
+		System.out.println("8. --Regresar al menu anterior--");
+		System.out.println("9. --Salir--");
+		System.out.println("Ingrese una opcion: ");
+		opcion = sc.nextByte();
+		switch (opcion) {
+			case 1 -> construirHabitacion(hospital);
+			case 2 -> verHabitacion(hospital);
+			case 3 -> destruirHabitacion(hospital);
+			case 4 -> agregarMedicamentos(hospital);
+			case 5 -> verMedicamentos(hospital);
+			case 6 -> verPersonasRegistradas(hospital);
+			case 7 -> verVacunas(hospital);
+			case 8 -> {
+				return;
+			}
+			case 9 -> {
+				Serializador.serializar(hospital);
+				System.exit(0);
+			}
+		}
+	} while (true);
+}
+
+
+	public static void construirHabitacion (Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Por favor introduce la información de la nueva habitación");
+	System.out.println("Ingrese el número de la habitación:");
+	int numero = sc.nextInt();
+	CategoriaHabitacion categoriaHabitacion = null;
+	int eleccion;
+	do {
+		System.out.println("Elija el tipo de habitacion que desea construir");
+		System.out.println("1. CAMILLA");
+		System.out.println("2. INDIVIDUAL");
+		System.out.println("3. DOBLE");
+		System.out.println("4. OBSERVACION");
+		System.out.println("5. UCI");
+		System.out.println("6. UCC");
+		System.out.print("Ingrese una opción: ");
+		eleccion = sc.nextInt();
+		sc.nextLine();
+
+
+		switch (eleccion) {
+			case 1:
+				categoriaHabitacion=CategoriaHabitacion.CAMILLA;
+				break;
+			case 2:
+				categoriaHabitacion=CategoriaHabitacion.INDIVIDUAL;
+				break;
+			case 3:
+				categoriaHabitacion=CategoriaHabitacion.DOBLE;
+				break;
+			case 4:
+				categoriaHabitacion=CategoriaHabitacion.OBSERVACION;
+				break;
+			case 5:
+				categoriaHabitacion=CategoriaHabitacion.UCI;
+				break;
+			case 6:
+				categoriaHabitacion=CategoriaHabitacion.UCC;
+				break;
+		}
+	} while (eleccion != 1 && eleccion != 2 && eleccion != 3 && eleccion != 4 && eleccion != 5 && eleccion != 6);
+	boolean ocupada=false;
+	int dias=0;
+
+	for (Habitacion habitacion : Hospital.habitaciones) {
+		if (habitacion.getNumero()==numero && habitacion.getCategoria()==categoriaHabitacion){
+			System.out.println("La habitación ya existe");
+			return;
+		}
+
+	}
+	Habitacion habitacion= new Habitacion(numero, categoriaHabitacion, ocupada, null, dias);
+	System.out.println("Ya se ha construido la nueva habitación");
+	hospital.getHabitaciones().add(habitacion);
+	System.out.println("-Número de ID de la habitación: "+ habitacion.getNumero() +" "+ "-Categoria de la habitación: "+ habitacion.getCategoria());
+}
+
+	public static void verHabitacion (Hospital hospital){
+	Scanner sc= new Scanner(System.in);
+	System.out.println("Ingrese el tipo de habitacion que desea ver: ");
+	System.out.println("'CAMILLA', 'INDIVIDUAL', 'DOBLE', 'OBSERVACION', 'UCI'o 'UCC'");
+	String categoriaSeleccionada = sc.next();
+	CategoriaHabitacion habitacionSeleccionada = CategoriaHabitacion.valueOf(categoriaSeleccionada);
+	for (Habitacion habitacion: hospital.habitaciones){
+		if (habitacion.getCategoria()==habitacionSeleccionada){
+			String ocupada="Libre";
+			if(habitacion.isOcupada()){
+				ocupada="Ocupada";
+			}
+
+			System.out.println("Numero ID de la habitación:  "+ habitacion.getNumero()+" "+ "Tipo de habitación: "+ habitacion.getCategoria()+" "+ "Estado: "+ ocupada);
+		}
+	}
+}
 
 
 }
