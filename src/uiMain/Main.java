@@ -1635,4 +1635,47 @@ public static void destruirHabitacion (Hospital hospital){
 }
 
 
+public static void verMedicamentos(Hospital hospital) {
+	ArrayList<Medicamento> listaMedicamentos = hospital.getListaMedicamentos();
+	System.out.println("Este es el inventario de los medicamentos del hospital: ");
+	for (int i = 0; i < listaMedicamentos.size(); i++) {
+		System.out.println(i + 1 + "." + listaMedicamentos.get(i) + "Cantidad:" + listaMedicamentos.get(i).getCantidad());
+	}
+}
+
+	public static void verPersonasRegistradas (Hospital hospital){
+	ArrayList<Doctor> listaDoctores = hospital.getListaDoctores();
+	ArrayList<Paciente> listaPacientes = hospital.getListaPacientes();
+
+	System.out.println("Doctores: ");
+	for (Doctor doc : listaDoctores){
+		System.out.println(doc);
+	}
+
+	System.out.println("Pacientes:");
+	for (Paciente pac : listaPacientes){
+		System.out.println(pac);
+	}
+}
+
+	public static void verVacunas (Hospital hospital){
+
+	for (Vacuna vacuna : hospital.getListaVacunas()){
+		System.out.println("\nVacuna: "+vacuna.getNombre());
+		System.out.println("Tipo: "+vacuna.getTipo());
+		System.out.println("Precio: "+vacuna.getPrecio());
+		System.out.println("Eps a la que está disponible: ");
+		for (String fecha: vacuna.getTipoEps()){
+			System.out.println(fecha);
+		}
+		System.out.println("Agenda de la vacuna: ");
+		for (CitaVacuna agenda: vacuna.getAgenda()){
+			System.out.println(agenda.getFecha());
+		}
+
+	}
+
+}
+
+
 }
