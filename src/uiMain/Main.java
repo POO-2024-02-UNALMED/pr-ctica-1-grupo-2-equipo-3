@@ -1118,7 +1118,7 @@ public static void menuGestion(Hospital hospital) {
         System.out.println("\n"+pacienteAsignado.despedida(citaAsignada));
     }
 
-    
+
     public static void facturacion(Hospital hospital) {
         // Buscar paciente
         Paciente pacienteSeleccionado;
@@ -1193,6 +1193,96 @@ public static void menuGestion(Hospital hospital) {
     }
 
 
+///////////////////////////////// GESTION ///////////////////////////////////////////////
+
+///------------------------------- gestion doctores------------------------------------///
+
+
+	public static void menuGestionDoctor(Hospital hospital) {
+	byte opcion;
+	do {
+		// Menu para gestionar la clase Doctor
+		System.out.println("\nMENU Gestion Doctor");
+		System.out.println("1. Registrar doctor");
+		System.out.println("2. Eliminar doctor");
+		System.out.println("3. Ver doctor");
+		System.out.println("4. Agregar citas");
+		System.out.println("5. Eliminar citas");
+		System.out.println("6. --Regresar al menu anterior--");
+		System.out.println("7. --Salir--");
+		System.out.println("Ingrese una opcion: ");
+		opcion = sc.nextByte();
+		switch (opcion) {
+			case 1 -> registrarDoctor(hospital);
+			case 2 -> eliminarDoctor(hospital);
+			case 3 -> verDoctor(hospital);
+			case 4 -> agregarCitas(hospital);
+			case 5 -> eliminarCitas(hospital);
+			case 6 -> {
+				return;
+			}
+			case 7 -> {
+				Serializador.serializar(hospital);
+				System.exit(0);
+			}
+		}
+	} while (true);
+}
+
+
+	public static void registrarDoctor (Hospital hospital){
+
+	Scanner sc= new Scanner(System.in);
+
+	System.out.println("Por favor introduce la información del doctor para su registro");
+	System.out.println("Ingrese el nombre del doctor:");
+	String nombre = sc.next();
+	System.out.println("Ingrese el número de cédula: ");
+	int id = sc.nextInt();
+
+	if (hospital.buscarDoctor(id) != null) {
+		System.out.println("Este doctor ya esta registrado");
+		return;
+	}
+
+	System.out.println("Ingrese su tipo de EPS 'Subsidiado','Contributivo' o 'Particular':");
+	String eps = sc.next();
+	System.out.println("Ingrese su especialidad 'General', 'Odontologia' o 'Oftalmologia': ");
+	String especialidad = sc.next();
+
+	Doctor doctor = new Doctor(id, nombre, eps, especialidad);
+	System.out.println("¡El doctor ha sido registrado con éxito!");
+	hospital.getListaDoctores().add(doctor);
+	System.out.println(doctor);
+}
+
+	public static void eliminarDoctor(Hospital hospital) {
+	Scanner sc= new Scanner(System.in);
+	System.out.println("Ingrese la cédula del doctor que se eliminará: ");
+	int cedula = sc.nextInt();
+	Doctor doctor = hospital.buscarDoctor(cedula);
+	if (doctor == null) { /*Si el doctor es null, quiere decir que no lo encontró, por lo que
+	preguntamos si desea registrar este doctor */
+		while (true) {
+			System.out.println("El doctor no esta registrado.\n¿Desea registrarlo?");
+			System.out.println("1. Si\n2. No \nSeleccione una opción");
+			byte opcion = sc.nextByte();
+			switch (opcion) {
+				case 1:
+					registrarDoctor(hospital);
+					return;
+
+				case 2:
+					System.out.println("Adios");
+					return;
+				default:
+					System.out.println("Opción Inválida");
+			}
+		}
+	}
+	hospital.getListaDoctores().remove(doctor);
+	System.out.println("¡Doctor eliminado!");
+}
 
 
 
