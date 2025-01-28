@@ -25,10 +25,10 @@ public class Vacuna implements Serializable {
         this.tipoEps = tipoEps;
         this.precio=precio;
         //Se crea una agenda por defecto para cada vacuna
-        agenda.add(new CitaVacuna("3 de Abril, 8:00 am", null, this));
-        agenda.add(new CitaVacuna("3 de Abril, 11:00 am", null, this));
-        agenda.add(new CitaVacuna("4 de Abril, 3:00 pm", null, this));
-        agenda.add(new CitaVacuna("5 de Abril, 10:00 am", null, this));
+        agenda.add(new CitaVacuna("3 de Febrero, 8:00 am", null, this));
+        agenda.add(new CitaVacuna("3 de Febrero, 11:00 am", null, this));
+        agenda.add(new CitaVacuna("4 de Febrero, 3:00 pm", null, this));
+        agenda.add(new CitaVacuna("5 de Febrero, 10:00 am", null, this));
     }
 
     //Métodos
