@@ -20,25 +20,36 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Main {
+// Interfaz con método por defecto
+interface MensajeBienvenida {
+    default void mostrarMensajeBienvenida() {
+        System.out.println("Bienvenido al Sistema de registro hospitalario basado en objetos");
+    }
+}
+
+public class Main implements MensajeBienvenida {
 
     private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         Hospital hospital = new Hospital(); // Inicio de instancia de hospital para serialización
-        mostrarMensajeBienvenida();
+        Main mainInstance = new Main();
+        mainInstance.mostrarMensajeBienvenida();
         mostrarUtilidadPrograma();
         menuInicial(hospital);
     }
 
-    public static void mostrarMensajeBienvenida() {
-        System.out.println("Bienvenido al Sistema de registro hospitalario basado en objetos");
+    public static void mostrarUtilidadPrograma() {
+        System.out.println("Utilidadez del programa:");
+        System.out.println("- Gestión de pacientes, doctores y medicamentos.");
+        System.out.println("- Asignación de habitaciones en el hospital.");
+        System.out.println("- Registro y manejo de citas médicas y de vacunación.");
+        System.out.println("- Generación de facturas y control de pagos.");
+        System.out.println("- Manejo de inventario de medicamentos y vacunas.");
     }
 
     public static void menuInicial(Hospital hospital) {
-
         byte opcion; // Se inicia la variable para elegir la opción que se selecciona
-
         do {
             // Inicio del programa, solo se selecciona a que menú se desea acceder
             System.out.println("\nMENU INICIAL");
@@ -58,17 +69,9 @@ public class Main {
             }
         } while (true);
     }
-    public static void mostrarUtilidadPrograma() {
-        System.out.println("Utilidadez del programa:");
-        System.out.println("- Gestión de pacientes, doctores y medicamentos.");
-        System.out.println("- Asignación de habitaciones en el hospital.");
-        System.out.println("- Registro y manejo de citas médicas y de vacunación.");
-        System.out.println("- Generación de facturas y control de pagos.");
-        System.out.println("- Manejo de inventario de medicamentos y vacunas.");
-    }
-public static void menuFuncionalidades(Hospital hospital) {
-        byte opcion;
 
+    public static void menuFuncionalidades(Hospital hospital) {
+        byte opcion;
         do {
             System.out.println("\nMENU FUNCIONALIDADES");
             System.out.println("1. Agendar una cita medica");
@@ -101,7 +104,7 @@ public static void menuFuncionalidades(Hospital hospital) {
         } while (true);
     }
 
-public static void menuGestion(Hospital hospital) {
+    public static void menuGestion(Hospital hospital) {
         byte opcion;
         // Menú para gestionar las clases del programa
         do {
@@ -129,8 +132,6 @@ public static void menuGestion(Hospital hospital) {
             }
         } while (true);
     }
-
-
 
 
 	///////////////////////////////// FUNCIONALIDADES ////////////////////////////////////////
